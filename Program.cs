@@ -6,34 +6,59 @@ namespace Revisao
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Informe a Opção desejada:");
-            Console.WriteLine("1- Inserir novo aluno");
-            Console.WriteLine("2- Listar Alunos");
-            Console.WriteLine("3- Calcular Media Geral");
-            Console.WriteLine("X- Sair");
-            Console.WriteLine();
+            Aluno[] alunos = new Aluno[5];
+            var indiceAluno = 0;
+            string opcaoUsuario = ObterOpcaoUsuario();
 
-            string opcaoUsuario = Console.ReadLine();
-
-            while (opcaoUsuario.ToUpper() != "x");
+            while (opcaoUsuario.ToUpper() != "x")
             {
                 switch (opcaoUsuario)
                 {
                     case "1":
-                    //TODO: Adicionar Aluno
+                        //TODO: Adicionar Aluno
+                        Console.WriteLine("Informe o nome do aluno:");
+                        var aluno = new Aluno();
+                        aluno.Nome = Console.ReadLine();
+
+                        
+                        Console.WriteLine("Informe a nota do Aluno:");
+
+                       if (decimal.TryParse(Console.ReadLine(), out decimal nota))
+                       {
+                           aluno.Nota = nota;
+                       }
+                        else
+                        {
+                            throw new ArgumentException("Valor da Nota deve ser decimal");
+                        }
+                        alunos [indiceAluno] = aluno;
+                        indiceAluno++;                        
                         break;
                     case "2":
-                    //TODO: listar Alunos
+                        //TODO: listar Alunos
+                        foreach(var a in alunos)
+                        {
+                            if (!string.IsNullOrEmpty(a.Nome))
+                            {
+                            Console.WriteLine($"ALUNO: {a.Nome} -  NOTA: {a.Nota}");
+                            Console.WriteLine();
+                            }
+                        }
                         break;
                     case "3":
-                    //TODO: Calcular Media Total
+                        //TODO: Calcular Media Total
                         break;
-                        
-                        default:
+
+                    default:
                         throw new ArgumentOutOfRangeException();
                 }
-            }
 
+                opcaoUsuario = ObterOpcaoUsuario();
+            }
+        }
+
+        private static string ObterOpcaoUsuario()
+        {
             Console.WriteLine("Informe a Opção desejada:");
             Console.WriteLine("1- Inserir novo aluno");
             Console.WriteLine("2- Listar Alunos");
@@ -42,7 +67,8 @@ namespace Revisao
             Console.WriteLine();
 
             string opcaoUsuario = Console.ReadLine();
-
+            Console.WriteLine();
+            return opcaoUsuario;
         }
     }
 }
